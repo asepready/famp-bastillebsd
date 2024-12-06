@@ -1,7 +1,7 @@
 ARG server_ip=10.0.0.10
 ARG server_dns=localhost.my.domain
 
-RESTART
+#RESTART
 
 PKG apache24 php82
 
@@ -24,7 +24,9 @@ SYSRC apache24_flags=""
 SYSRC php_fpm_enable="YES"
 
 CMD httpd -t
-CMD echo '<?php phpinfo(); ?>' > /usr/local/www/apache24/data/info.php
+CP usr/local/www/apache24/cgi-bin/index.cgi /usr/local/www/apache24/cgi-bin/
+CMD chmod 755 /usr/local/www/apache24/cgi-bin/index.cgi
+CP usr/local/www/apache24/data/info.php /usr/local/www/apache24/data/
 
 SERVICE apache24 restart
 SERVICE php_fpm restart

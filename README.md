@@ -53,22 +53,22 @@ bastille bootstrap 14.1-RELEASE
 Create a container named FAMP with a private IP address 10.0.0.10
 
 ```sh
-bastille create FAMP 14.1-RELEASE 10.0.0.10
+bastille create famp 14.1-RELEASE 10.0.0.10
 # Redirect Port Conatiner to Host
 #CMD RDR Container Protocol HostPort ContainerPort
-bastille rdr FAMP tcp 80 80
-bastille rdr FAMP tcp 443 443
+bastille rdr famp tcp 80 80
+bastille rdr famp tcp 443 443
 ```
 Now apply FAMP template to container
 
 ```sh
 bastille bootstrap https://github.com/asepready/famp-bastillebsd
-bastille template FAMP asepready/famp-bastillebsd
+bastille template famp asepready/famp-bastillebsd
 ```
 if you want to apply template using another private IP address, you can do the following
 
 ```sh
-bastille template FAMP asepready/famp-bastillebsd --arg server_ip=11.0.0.2
+bastille template famp asepready/famp-bastillebsd --arg server_ip=11.0.0.2
 ```
 ## License
 This project is licensed under the BSD-3-Clause license.
