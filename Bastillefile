@@ -7,11 +7,11 @@ PKG apache24 php82
 
 CP etc/hosts /etc/
 CP usr/local/etc/apache24/httpd.conf /usr/local/etc/apache24/
-CP usr/local/etc/apache24/extra/httpd-default.conf /usr/local/etc/apache24/
+CP usr/local/etc/apache24/extra/httpd-default.conf /usr/local/etc/apache24/extra/
 CMD sed -e "s,%%SERVER_IP%%,${server_ip},g" -i "" /etc/hosts
 CMD sed -i -e 's/ServerAdmin you@example.com/ServerAdmin admin@${server_dns}/g' /usr/local/etc/apache24/httpd.conf
 CMD sed -i -e 's/#ServerName www.example.com:80/ServerName www.${server_dns}:80/g' /usr/local/etc/apache24/httpd.conf
-CP usr/local/etc/apache24/extra/httpd-ssl.conf /usr/local/etc/apache24/
+CP usr/local/etc/apache24/extra/httpd-ssl.conf /usr/local/etc/apache24/extra/
 CMD openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /usr/local/etc/apache24/server.key -out /usr/local/etc/apache24/server.crt -subj "/C=ID/ST=Bangka Belitung/L=Pangkalpinang/O=${server_dns}/CN=${server_dns}/emailAddress=admin@${server_dns}"
 CMD chmod 640 /usr/local/etc/apache24/server.key
 CMD chmod 640 /usr/local/etc/apache24/server.crt
