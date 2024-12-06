@@ -17,13 +17,17 @@ CMD chmod 640 /usr/local/etc/apache24/server.key
 CMD chmod 640 /usr/local/etc/apache24/server.crt
 CMD sed -i -e 's/ServerAdmin you@example.com/ServerAdmin admin@${server_dns}/g' /usr/local/etc/apache24/extra/httpd-ssl.conf
 CMD sed -i -e 's/ServerName www.example.com:443/ServerName www.${server_dns}:443/g' /usr/local/etc/apache24/extra/httpd-ssl.conf
+CMD cp /usr/local/etc/php.ini-production /usr/local/etc/php.ini
 
 SYSRC apache24_enable=YES
 SYSRC apache24_flags=""
+SYSRC php_fpm_enable="YES"
 
 CMD httpd -t
+CMD echo '<?php phpinfo(); ?>' > /usr/local/www/apache24/data/info.php
 
 SERVICE apache24 restart
+SYSRC service php_fpm restart
 
 #RDR tcp 80 80
 #RDR tcp 443 443
