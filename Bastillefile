@@ -27,7 +27,7 @@ CMD httpd -t
 CMD echo '<?php phpinfo(); ?>' > /usr/local/www/apache24/data/info.php
 
 SERVICE apache24 restart
-SYSRC service php_fpm restart
+SERVICE php_fpm restart
 
 #RDR tcp 80 80
 #RDR tcp 443 443
