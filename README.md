@@ -54,8 +54,6 @@ Create a container named FAMP with a private IP address 10.0.0.10
 
 ```sh
 bastille create FAMP 14.1-RELEASE 10.0.0.10
-bastille sysrc FAMP sshd_enable=YES
-bastille service FAMP sshd start
 # Redirect Port Conatiner to Host
 #CMD RDR Container Protocol HostPort ContainerPort
 bastille rdr FAMP tcp 80 80

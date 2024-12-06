@@ -1,8 +1,28 @@
+# Define
 ARG server_ip=10.0.0.10
 
+# Restart COntainer
+RESTART
+
+# install Depedency
 PKG apache24
+
+# Copy File Configure
 CP etc/hosts /etc/
+
+
+# Substitution Command
+CMD sed -e "s,%%SERVER_IP%%,${server_ip},g" -i "" /etc/hosts
+
+# Enable Boot
 SYSRC apache24_enable=YES
 SYSRC apache24_flags=""
+
+# Test Vhost Configure
 CMD httpd -t
+
+# Start Service
 SERVICE apache24 start
+
+# Redirecting Ports
+RDR tcp 80 80
