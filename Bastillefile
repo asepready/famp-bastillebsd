@@ -1,6 +1,6 @@
 ARG server_ip=10.0.0.10
 ARG server_dns=localhost.my.domain
-ARG timezone=Asia/Jakarta
+ARG timezone=Asia\/Jakarta
 
 RESTART
 
@@ -19,7 +19,7 @@ CMD chmod 640 /usr/local/etc/apache24/server.crt
 CMD sed -i -e 's/ServerAdmin you@example.com/ServerAdmin admin@${server_dns}/g' /usr/local/etc/apache24/extra/httpd-ssl.conf
 CMD sed -i -e 's/ServerName www.example.com:443/ServerName www.${server_dns}:443/g' /usr/local/etc/apache24/extra/httpd-ssl.conf
 CMD cp /usr/local/etc/php.ini-production /usr/local/etc/php.ini
-CMD sed -i -e 's/;date.timezone =/date.timezone = ${timezone}/g' /usr/local/etc/php.ini
+CMD sed -i -e 's/;date.timezone = /date.timezone = ${timezone}/g' /usr/local/etc/php.ini
 
 SYSRC apache24_enable=YES
 SYSRC apache24_flags=""
