@@ -1,4 +1,5 @@
 ARG server_ip=10.0.0.10
+
 PKG apache24
 CP etc/hosts /etc/
 SYSRC apache24_enable=YES
