@@ -57,6 +57,7 @@ bastille create FAMP 14.1-RELEASE 10.0.0.10
 # Redirect Port Conatiner to Host
 #CMD RDR Container Protocol HostPort ContainerPort
 bastille rdr FAMP tcp 80 80
+bastille rdr FAMP tcp 443 443
 ```
 Now apply FAMP template to container
 
