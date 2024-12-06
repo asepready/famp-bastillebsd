@@ -3,7 +3,7 @@ ARG server_dns=localhost.my.domain
 
 RESTART
 
-PKG apache24
+PKG apache24 php82
 
 CP etc/hosts /etc/
 CP usr/local/etc/apache24/httpd.conf /usr/local/etc/apache24/
