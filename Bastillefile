@@ -1,28 +1,24 @@
-# Define
 ARG server_ip=10.0.0.10
+ARG server_dns=localhost.my.domain
 
-# Restart COntainer
 RESTART
 
-# install Depedency
 PKG apache24
 
-# Copy File Configure
 CP etc/hosts /etc/
+CP usr/local/etc/apache24/httpd.conf /usr/local/etc/apache24/
+CP usr/local/etc/apache24/extra/httpd-default.conf /usr/local/etc/apache24/
 
-
-# Substitution Command
 CMD sed -e "s,%%SERVER_IP%%,${server_ip},g" -i "" /etc/hosts
+CMD sed -e 's/ServerAdmin you@example.com/ServerAdmin admin@${server_dns}/g' -i /usr/local/etc/apache24/httpd.conf
+CMD sed -e 's/#ServerName www.example.com:80/ServerName www.${server_dns}:80/g' -i /usr/local/etc/apache24/httpd.conf
+CMD openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /usr/local/etc/apache24/server.key -out /usr/local/etc/apache24/server.crt -subj "/C=ID/ST=Bangka Belitung/L=Pangkalpinang/O=${server_dns}/CN=${server_dns}/emailAddress=admin@${server_dns}"
 
-# Enable Boot
 SYSRC apache24_enable=YES
 SYSRC apache24_flags=""
 
-# Test Vhost Configure
 CMD httpd -t
 
-# Start Service
-SERVICE apache24 start
+SERVICE apache24 restart
 
-# Redirecting Ports
 RDR tcp 80 80
