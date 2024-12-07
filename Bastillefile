@@ -3,7 +3,7 @@ ARG server_dns=localhost.my.domain
 
 #RESTART
 
-PKG apache24 php82
+PKG apache24 php82 mariadb105-server phpMyAdmin5-php82 php82-mysqli php82-fileinfo php82-session php82-curl
 
 CP etc/hosts /etc/
 CP usr/local/etc/apache24/httpd.conf /usr/local/etc/apache24/
@@ -21,7 +21,9 @@ CMD cp /usr/local/etc/php.ini-production /usr/local/etc/php.ini
 
 SYSRC apache24_enable=YES
 SYSRC apache24_flags=""
-SYSRC php_fpm_enable="YES"
+SYSRC php_fpm_enable=YES
+SYSRC mysql_enable=YES
+SYSRC mysql_args="--bind-address=127.0.0.1"
 
 CMD httpd -t
 CP usr/local/www/apache24/cgi-bin/index.cgi /usr/local/www/apache24/cgi-bin/
@@ -30,6 +32,7 @@ CP usr/local/www/apache24/data/info.php /usr/local/www/apache24/data/
 
 SERVICE apache24 restart
 SERVICE php_fpm restart
+SERVICE mysql-server restart
 
 #RDR tcp 80 80
 #RDR tcp 443 443
